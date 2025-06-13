@@ -19,7 +19,7 @@ public class BulletSpawner : MonoBehaviour
     {
         _pool = new ObjectPool<Bullet>(
             createFunc: () => Instantiate(_prefab, _shootPosition.position, Quaternion.identity),
-            actionOnGet: (obj) => ActionOnGet(obj),
+            actionOnGet: (obj) => GetBullet(obj),
             actionOnRelease: (obj) => obj.gameObject.SetActive(false),
             actionOnDestroy: (obj) => Destroy(obj),
             collectionCheck: true,
@@ -33,21 +33,22 @@ public class BulletSpawner : MonoBehaviour
         StartCoroutine(Shoot());
     }
 
-    private void ActionOnGet(Bullet bullit)
+    private void GetBullet(Bullet bullet)
     {
-        transform.position = _shootPosition.position;
-        bullit.gameObject.SetActive(true);
+        bullet.transform.position = _shootPosition.position;
+        bullet.gameObject.SetActive(true);
     }
 
     IEnumerator Shoot()
     {
+        var waitForSeconds = new WaitForSeconds(_shootingDeley);
         bool isWork = enabled;
 
         while (_isOn)
         {
             _pool.Get();
 
-            yield return new WaitForSeconds(_shootingDeley);
+            yield return waitForSeconds;
         }
     }
 }
