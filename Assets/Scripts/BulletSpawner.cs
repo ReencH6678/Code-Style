@@ -42,7 +42,6 @@ public class BulletSpawner : MonoBehaviour
     private IEnumerator Shoot()
     {
         var waitForSeconds = new WaitForSeconds(_shootingDeley);
-        bool isWork = enabled;
 
         while (_isOn)
         {
