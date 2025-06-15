@@ -4,9 +4,9 @@ using UnityEngine.Pool;
 
 public class BulletSpawner : MonoBehaviour
 {
-    [SerializeField] Bullet _prefab;
-    [SerializeField] Transform _shootPosition;
-    [SerializeField] float _shootingDeley;
+    [SerializeField] private Bullet _prefab;
+    [SerializeField] private Transform _shootPosition;
+    [SerializeField] private float _shootingDeley;
 
     private bool _isOn = true;
 
@@ -28,7 +28,7 @@ public class BulletSpawner : MonoBehaviour
             );
     }
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(Shoot());
     }
@@ -39,7 +39,7 @@ public class BulletSpawner : MonoBehaviour
         bullet.gameObject.SetActive(true);
     }
 
-    IEnumerator Shoot()
+    private IEnumerator Shoot()
     {
         var waitForSeconds = new WaitForSeconds(_shootingDeley);
         bool isWork = enabled;
